@@ -1,5 +1,5 @@
 # Ignoriere heruntergeladene Datensätze
-data/raw/wine_quiality.csv
+data/raw/wine_quality.csv
 
 # Ignoriere den bearbeiteten Datensätze
-data/wine_quiality_transformed.csv
+data/wine_quality_transformed.csv
