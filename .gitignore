@@ -1,2 +1,5 @@
 # Ignoriere heruntergeladene Datensätze
-data/raw/wine-quality-white-and-red.csv
+data/raw/wine_quiality.csv
+
+# Ignoriere den bearbeiteten Datensätze
+data/wine_quiality_transformed.csv
