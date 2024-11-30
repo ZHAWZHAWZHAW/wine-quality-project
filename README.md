@@ -21,8 +21,7 @@ Der Datensatz enthält rund **78'000 Datenpunkte**, die verschiedene chemische E
      - Okay
      - Gut
      - Sehr gut  
-
-Dies macht die Ergebnisse anschaulicher und besser interpretierbar.
+   Dies macht die Ergebnisse anschaulicher und besser interpretierbar.
 
 3. **Modellierung**  
    - Wir entwickeln mehrere Klassifikationsmodelle, um die Weinqualität vorherzusagen.
