@@ -41,19 +41,16 @@ Das Hauptziel ist es, einen robusten Algorithmus zu entwickeln, der auf Basis ch
      - Sehr gut  
    Dies macht die Ergebnisse anschaulicher und besser interpretierbar.
 
-4. **Data Cleansing**
+4. **Data Cleansing + Analysis & Validation**
    - Text
 
-5. **Analysis & Validation**
-   - Text 
-
-6. **Feature Selection & Engineering**
+5. **Feature Selection & Engineering**
    - Text
 
-7. **Anwendung in Machine Learning**
+6. **Anwendung in Machine Learning**
    - Text
 
-8. **Anwendung von XAI – Technikeng**
+7. **Anwendung von XAI – Technikeng**
    - Text
 
 ---
