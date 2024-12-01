@@ -1,3 +1,4 @@
 # Ignoriere heruntergeladene Datensätze
-data/raw/wine_quality.csv
+data/raw/wine_quality_raw.csv
 data/wine_quality_processed.csv
+model/wine_quality.csv
