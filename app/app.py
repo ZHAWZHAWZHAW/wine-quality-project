@@ -27,22 +27,31 @@ def index():
 def predict():
     try:
         # Eingaben aus dem Formular abrufen
-        fixed_acidity = float(request.form['fixed_acidity'])
-        volatile_acidity = float(request.form['volatile_acidity'])
-        citric_acid = float(request.form['citric_acid'])
-        residual_sugar = float(request.form['residual_sugar'])
-        chlorides = float(request.form['chlorides'])
-        free_sulfur_dioxide = float(request.form['free_sulfur_dioxide'])
-        total_sulfur_dioxide = float(request.form['total_sulfur_dioxide'])
-        density = float(request.form['density'])
-        pH = float(request.form['pH'])
-        sulphates = float(request.form['sulphates'])
-        alcohol = float(request.form['alcohol'])
+        form_values = {
+            'type': request.form.get('type', '1'),  # Standardwert: 1 für Weißwein
+            'fixed_acidity': request.form.get('fixed_acidity'),
+            'volatile_acidity': request.form.get('volatile_acidity'),
+            'citric_acid': request.form.get('citric_acid'),
+            'residual_sugar': request.form.get('residual_sugar'),
+            'chlorides': request.form.get('chlorides'),
+            'free_sulfur_dioxide': request.form.get('free_sulfur_dioxide'),
+            'total_sulfur_dioxide': request.form.get('total_sulfur_dioxide'),
+            'density': request.form.get('density'),
+            'pH': request.form.get('pH'),
+            'sulphates': request.form.get('sulphates'),
+            'alcohol': request.form.get('alcohol')
+        }
+
+        # Alle Features sicherstellen
+        all_features = ['type', 'fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar',
+                        'chlorides', 'free_sulfur_dioxide', 'total_sulfur_dioxide', 'density',
+                        'pH', 'sulphates', 'alcohol']
+
+        # Fehlende Werte auffüllen mit Standardwerten
+        features = [float(form_values.get(feature, 0)) for feature in all_features]
 
         # Eingaben in ein numpy-Array umwandeln
-        features = np.array([[fixed_acidity, volatile_acidity, citric_acid,
-                              residual_sugar, chlorides, free_sulfur_dioxide,
-                              total_sulfur_dioxide, density, pH, sulphates, alcohol]])
+        features = np.array([features])
 
         # Daten skalieren
         scaled_features = scaler.transform(features)
@@ -55,15 +64,30 @@ def predict():
                 model_name: model.predict(scaled_features)[0]
                 for model_name, model in models.items()
             }
-            return render_template('index.html', predictions=predictions, models=list(models.keys()))
+            return render_template(
+                'index.html', 
+                predictions=predictions, 
+                models=list(models.keys()), 
+                form_values=form_values  # Formulardaten an Template zurückgeben
+            )
         else:
             # Nur ein Modell verwenden
             model = models[selected_model]
             prediction = model.predict(scaled_features)[0]
-            return render_template('index.html', prediction=prediction, models=list(models.keys()))
+            return render_template(
+                'index.html', 
+                prediction=prediction, 
+                models=list(models.keys()), 
+                form_values=form_values  # Formulardaten an Template zurückgeben
+            )
 
     except Exception as e:
-        return render_template('index.html', error=str(e), models=list(models.keys()))
+        return render_template(
+            'index.html', 
+            error=str(e), 
+            models=list(models.keys()), 
+            form_values=form_values  # Formulardaten an Template zurückgeben
+        )
 
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1", port=5000)
