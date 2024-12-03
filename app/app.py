@@ -20,7 +20,8 @@ scaler = load(os.path.join(model_path, "scaler.joblib"))
 # Home-Route
 @app.route('/')
 def index():
-    return render_template('index.html', models=list(models.keys()))
+    # Ein leeres Dictionary für form_values, damit die Seite korrekt geladen wird
+    return render_template('index.html', models=list(models.keys()), form_values={})
 
 # Vorhersage-Route
 @app.route('/predict', methods=['POST'])
