@@ -88,6 +88,10 @@
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
         }
+
+        .img-fluid {
+
+        }
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -110,55 +114,63 @@
         <a href="#projekt">Unser Projekt</a>
     </nav>
     <div id="predictor" class="tab-content fade-in">
-        <h2 class="text-center mb-4">Wine Quality Predictor</h2>
-        <form method="POST" action="/predict">
-            <div class="row">
-                {% for field in ['fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar', 
-                                 'chlorides', 'free_sulfur_dioxide', 'total_sulfur_dioxide', 'density', 
-                                 'pH', 'sulphates', 'alcohol'] %}
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="{{ field }}">{{ field.replace('_', ' ').title() }}:</label>
-                        <input type="text" id="{{ field }}" name="{{ field }}" value="{{ form_values.get(field, '') }}" class="form-control" placeholder="Enter {{ field.replace('_', ' ') }}">
-                    </div>
-                </div>
-                {% endfor %}
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="model">Select Model:</label>
-                        <select id="model" name="model" class="form-control">
-                            <option value="Random Forest" {% if form_values.get('model') == 'Random Forest' %}selected{% endif %}>Random Forest</option>
-                            <option value="Logistic Regression" {% if form_values.get('model') == 'Logistic Regression' %}selected{% endif %}>Logistic Regression</option>
-                            <option value="SVC" {% if form_values.get('model') == 'SVC' %}selected{% endif %}>Support Vector Classifier (SVC)</option>
-                            <option value="All" {% if form_values.get('model') == 'All' %}selected{% endif %}>Compare All Models</option>
-                        </select>
-                    </div>
+    <h2 class="text-center mb-4">Wine Quality Predictor</h2>
+    <form method="POST" action="/predict">
+        <div class="row">
+            {% for field in ['fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar', 
+                             'chlorides', 'free_sulfur_dioxide', 'total_sulfur_dioxide', 'density', 
+                             'pH', 'sulphates', 'alcohol'] %}
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="{{ field }}">{{ field.replace('_', ' ').title() }}:</label>
+                    <input type="text" id="{{ field }}" name="{{ field }}" value="{{ form_values.get(field, '') }}" class="form-control" placeholder="Enter {{ field.replace('_', ' ') }}">
                 </div>
             </div>
-            <button type="submit" class="mt-3">Predict</button>
-        </form>
-        {% if predictions %}
-        <div class="result success mt-4 fade-in">
-            <h3>Predictions from All Models:</h3>
-            <ul>
-                {% for model, pred in predictions.items() %}
-                <li><strong>{{ model }}:</strong> {{ pred }}</li>
-                {% endfor %}
-            </ul>
+            {% endfor %}
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="model">Select Model:</label>
+                    <select id="model" name="model" class="form-control">
+                        <option value="Random Forest" {% if form_values.get('model') == 'Random Forest' %}selected{% endif %}>Random Forest</option>
+                        <option value="Logistic Regression" {% if form_values.get('model') == 'Logistic Regression' %}selected{% endif %}>Logistic Regression</option>
+                        <option value="SVC" {% if form_values.get('model') == 'SVC' %}selected{% endif %}>Support Vector Classifier (SVC)</option>
+                        <option value="All" {% if form_values.get('model') == 'All' %}selected{% endif %}>Compare All Models</option>
+                    </select>
+                </div>
+            </div>
         </div>
-        {% elif prediction %}
-        <div class="result success mt-4 fade-in">
-            <h3>Prediction:</h3>
-            <p>{{ prediction }}</p>
-        </div>
-        {% endif %}
-        {% if error %}
-        <div class="result error mt-4 fade-in">
-            <h3>Error:</h3>
-            <p>{{ error }}</p>
-        </div>
-        {% endif %}
+        <button type="submit" class="mt-3">Predict</button>
+    </form>
+    {% if predictions %}
+    <div class="result success mt-4 fade-in">
+        <h3>Predictions from All Models:</h3>
+        <ul>
+            {% for model, pred in predictions.items() %}
+            <li><strong>{{ model }}:</strong> {{ pred }}</li>
+            {% endfor %}
+        </ul>
     </div>
+    {% elif prediction %}
+    <div class="result success mt-4 fade-in">
+        <h3>Prediction:</h3>
+        <p>{{ prediction }}</p>
+    </div>
+    {% endif %}
+    {% if shap_data %}
+    <div class="result success mt-4 fade-in">
+        <h3>SHAP Explanations:</h3>
+        <p>Below is the SHAP visualization generated for the selected model:</p>
+        <img src="data:image/png;base64,{{ shap_data }}" alt="SHAP Visualization" class="img-fluid">
+    </div>
+    {% endif %}
+    {% if error %}
+    <div class="result error mt-4 fade-in">
+        <h3>Error:</h3>
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+</div>
+
     <div id="begriffe" class="tab-content fade-in" style="display: none;">
         <h2 class="text-center mb-4">Begriffe</h2>
         <div class="terms">
