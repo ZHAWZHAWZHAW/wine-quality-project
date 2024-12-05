@@ -1,7 +1,8 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import numpy as np
 from joblib import load
+import shap
 
 # Flask-App initialisieren
 app = Flask(__name__)
@@ -90,5 +91,61 @@ def predict():
             form_values=form_values  # Formulardaten an Template zurückgeben
         )
 
+# SHAP Explanation Route
+@app.route('/explain', methods=['POST'])
+def explain():
+    try:
+        # Eingaben aus dem Formular abrufen
+        form_values = {
+            'type': request.form.get('type', '1'),
+            'fixed_acidity': request.form.get('fixed_acidity'),
+            'volatile_acidity': request.form.get('volatile_acidity'),
+            'citric_acid': request.form.get('citric_acid'),
+            'residual_sugar': request.form.get('residual_sugar'),
+            'chlorides': request.form.get('chlorides'),
+            'free_sulfur_dioxide': request.form.get('free_sulfur_dioxide'),
+            'total_sulfur_dioxide': request.form.get('total_sulfur_dioxide'),
+            'density': request.form.get('density'),
+            'pH': request.form.get('pH'),
+            'sulphates': request.form.get('sulphates'),
+            'alcohol': request.form.get('alcohol')
+        }
+
+        # Alle Features sicherstellen
+        all_features = ['type', 'fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar',
+                        'chlorides', 'free_sulfur_dioxide', 'total_sulfur_dioxide', 'density',
+                        'pH', 'sulphates', 'alcohol']
+
+        # Fehlende Werte auffüllen mit Standardwerten
+        features = [float(form_values.get(feature, 0)) for feature in all_features]
+
+        # Eingaben in ein numpy-Array umwandeln
+        features = np.array([features])
+
+        # Daten skalieren
+        scaled_features = scaler.transform(features)
+
+        # Modellwahl
+        selected_model = request.form.get('model')
+        if selected_model in models:
+            model = models[selected_model]
+
+            # SHAP Erklärung generieren
+            explainer = shap.Explainer(model.predict, scaler.transform)
+            shap_values = explainer(scaled_features)
+
+            # SHAP Werte und Base Value als JSON zurückgeben
+            shap_summary = {
+                "shap_values": shap_values.values.tolist(),
+                "base_value": shap_values.base_values.tolist(),
+                "features": all_features
+            }
+            return jsonify(shap_summary)
+        else:
+            return jsonify({"error": "Invalid model selected."})
+
+    except Exception as e:
+        return jsonify({"error": str(e)})
+    
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1", port=5000)
