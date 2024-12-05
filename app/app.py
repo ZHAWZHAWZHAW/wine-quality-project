@@ -52,20 +52,20 @@ def predict():
         }
 
         # Ensure all features are included
-        all_features = ['type', 'fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar',
-                        'chlorides', 'free_sulfur_dioxide', 'total_sulfur_dioxide', 'density',
-                        'pH', 'sulphates', 'alcohol']
+        #all_features = ['type', 'fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar',
+        #                'chlorides', 'free_sulfur_dioxide', 'total_sulfur_dioxide', 'density',
+        #                'pH', 'sulphates', 'alcohol']
         
-        all_features1 = ['type', 'fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar',
+        all_features = ['type', 'fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar',
                         'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 'density',
                         'pH', 'sulphates', 'alcohol']
 
         # Fill missing values with defaults and convert to float
-        features = [float(form_values.get(feature, 0)) for feature in all_features1]
+        features = [float(form_values.get(feature, 0)) for feature in all_features]
 
         # Convert to numpy array
         #features = np.array(features)
-        features_df = pd.DataFrame([features], columns=all_features1)
+        features_df = pd.DataFrame([features], columns=all_features)
 
         # Scale features
         #scaled_features = scaler.transform(features)
@@ -102,7 +102,7 @@ def predict():
             # SHAP explanation generation
             explainer = shap.Explainer(model, masker=shap.maskers.Independent(features_df))
             shap_values = explainer(scaled_features)
-            shap_values.feature_names = all_features1
+            shap_values.feature_names = all_features
 
             # Create SHAP plot
             fig = plt.figure()
