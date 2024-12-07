@@ -27,8 +27,8 @@ jobs:
       # Step 5: Set up Git identity for committing
       - name: Set up Git user
         run: |
-          git config --global user.email "you@example.com"  # Use your email address
-          git config --global user.name "Your Name"          # Use your GitHub username
+          git config --global user.email "taulant.pireva@gmail.com"  # Use your email address
+          git config --global user.name "taulantpireva"          # Use your GitHub username
 
       # Step 6: Commit and push the Python script back to the repository
       - name: Commit and push the model.py file
