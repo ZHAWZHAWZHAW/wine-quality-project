@@ -37,4 +37,4 @@ jobs:
           git commit -m "Convert model.ipynb to model.py"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Use your GitHub token for authentication
+          GITHUB_TOKEN: ${{ secrets.PYTHON_PROJECT_SECRET }} # Use your GitHub token for authentication
