@@ -16,13 +16,14 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Set the FLASK_APP environment variable to the location of app.py
-# This points to the app.py inside the /app directory
 ENV FLASK_APP=/app/app.py
 
-# Copy the backend code (app/backend) and the app.py file from the app folder
+# Copy the backend code (app/backend) and the app.py file
 COPY app/backend /app/backend/
 COPY app/app.py /app/app.py
-COPY app/frontend /app/frontend/dist
+
+# Copy only the built frontend (from the dist folder)
+COPY --from=build-frontend /app/frontend/dist /app/frontend
 
 # Command to output file structure and then run the Flask app
 CMD ls /app && flask run --host=0.0.0.0 --port=5000
