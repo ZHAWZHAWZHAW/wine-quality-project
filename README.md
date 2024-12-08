@@ -6,7 +6,7 @@ In diesem Projekt dreht sich alles um die Frage: **Wie können wir mithilfe von 
 Dazu arbeiten wir mit einem umfangreichen Datensatz zur Weinqualität, den wir auf Kaggle gefunden haben:  
 [Wine Quality Data Set (Red & White Wine)](https://www.kaggle.com/datasets/ruthgn/wine-quality-data-set-red-white-wine).
 
-Der Datensatz enthält rund **78'000 Datenpunkte**, die verschiedene chemische Eigenschaften von Rot- und Weissweinen beschreiben, sowie eine Qualitätsbewertung auf einer Skala von **0 bis 10**. Ziel des Projekts ist es, mithilfe von Machine-Learning-Methoden eine möglichst präzise Vorhersage der Weinqualität zu ermöglichen.
+Der Datensatz enthält über **80'000 Datenpunkte**, die verschiedene chemische Eigenschaften von Rot- und Weissweinen beschreiben, sowie eine Qualitätsbewertung auf einer Skala von **0 bis 10**. Ziel des Projekts ist es, mithilfe von Machine-Learning-Methoden eine möglichst präzise Vorhersage der Weinqualität zu ermöglichen.
 
 ---
 
