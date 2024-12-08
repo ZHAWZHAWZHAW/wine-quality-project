@@ -69,10 +69,6 @@ Das Hauptziel ist es, einen robusten Algorithmus zu entwickeln, der auf Basis ch
 
 8.  **Anwendung von XAI – Technikeng**
 
-# Weinqualitätsvorhersage-App
-
-Diese Anwendung ist eine webbasierte App, die auf maschinellem Lernen basiert und die Weinqualität basierend auf verschiedenen Eingabefunktionen vorhersagt. Das Frontend wurde mit Vue.js entwickelt, und das Backend wird von Flask unterstützt, wobei Python-Abhängigkeiten für die Datenverarbeitung und die maschinellen Lernmodelle verwendet werden. Die App nutzt Docker für eine einfache Bereitstellung.
-
 ## Voraussetzungen
 
 Bevor Sie beginnen, stellen Sie sicher, dass die folgende Software installiert ist:
