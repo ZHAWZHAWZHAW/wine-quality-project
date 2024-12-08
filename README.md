@@ -46,7 +46,7 @@ Daten sinnvoll zusammenführen
       - Okay
       - Gut
       - Sehr gut  
-        Dies macht die Ergebnisse anschaulicher und besser interpretierbar.
+        -> Dies macht die Ergebnisse anschaulicher und besser interpretierbar.
 
 5.  **Data Cleansing + Analysis & Validation**
 
