@@ -22,7 +22,7 @@
             >
               <v-col>
                 <v-img
-                  :src="`http://localhost:5000/plots/${folder}/${file}`"
+                  :src="`/plots/${folder}/${file}`"
                   :alt="file"
                   class="w-50"
                 ></v-img>
@@ -49,7 +49,7 @@ export default {
   methods: {
     async fetchPlots() {
       try {
-        const response = await fetch("http://localhost:5000/get_plots");
+        const response = await fetch("/get_plots");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

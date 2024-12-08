@@ -15,35 +15,24 @@ matplotlib.use('Agg')
 app = Flask(__name__)
 CORS(app)
 
-# Dynamischer Pfad zum Ordner 'models'
-#base_dir = os.path.dirname(os.path.abspath(__file__))
-#model_path = os.path.join(base_dir, "models/")
-
-#models = {
-#    "Random Forest": load(os.path.join(model_path, "random_forest_model.joblib")),
-#    "Logistic Regression": load(os.path.join(model_path, "logistic_regression_model.joblib")),
-#    "SVC": load(os.path.join(model_path, "svc_model.joblib"))
-#}
-#scaler = load(os.path.join(model_path, "scaler.joblib"))
-
-# Path to the 'instructions' folder
-instructions_folder = os.path.join(os.path.dirname(__file__), 'backend/instructions')
+# Flask-App initialisieren
+app = Flask(__name__, static_folder='frontend/dist', static_url_path='/')
 
 # Home-Route
 @app.route('/')
 def index():
-    # Ein leeres Dictionary für form_values, damit die Seite korrekt geladen wird
-    return render_template('index.html', models=list(models.keys()), form_values={})
+    # Serve the index.html file from the build directory
+    return send_from_directory(os.path.join(app.static_folder), 'index.html')
+
+# Route to serve static assets (JS, CSS, images) from the dist folder
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('frontend/dist', filename)
 
 @app.route('/get_colab_links', methods=['GET'])
 def get_colab_links():
     links = read_colab_links('backend/colab_links.txt')
     return jsonify(links)  # Send links as a JSON response
-
-@app.route('/instructions/<filename>', methods=['GET'])
-def serve_instruction_file(filename):
-    # Serve the image files from the 'instructions' folder
-    return send_from_directory(instructions_folder, filename)
 
 @app.route('/get_plots', methods=['GET'])
 def get_plots_route():

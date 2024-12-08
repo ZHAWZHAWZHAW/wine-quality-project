@@ -22,7 +22,7 @@
           <v-col>Klicken Sie auf "Settings" oder "Einstellungen"</v-col>
           <v-col
             ><v-img
-              src="http://localhost:5000/instructions/kaggle_profile.png"
+              src="../assets/kaggle_profile.png"
               alt="Kaggle Profile"
               height="200px"
           /></v-col>
@@ -34,9 +34,7 @@
               Klicken sie auf "Create New Token" und speichern sie das
               "kaggle.json"
             </p></v-col
-          ><v-col
-            ><v-img
-              src="http://localhost:5000/instructions/kaggle_api_token.png" /></v-col></v-row
+          ><v-col><v-img src="../assets/kaggle_api_token.png" /></v-col></v-row
         ><v-row
           ><v-col
             ><p>
@@ -120,7 +118,7 @@ export default {
     async fetchColabLinks() {
       try {
         // Fetching Colab links from the backend
-        const response = await fetch("http://localhost:5000/get_colab_links"); // Backend API URL
+        const response = await fetch("/get_colab_links"); // Backend API URL
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

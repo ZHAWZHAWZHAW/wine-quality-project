@@ -64,7 +64,7 @@ const uploadFile = async () => {
   formData.append("file", file.value); // Append the file to FormData
 
   try {
-    const response = await fetch("http://localhost:5000/upload_zip", {
+    const response = await fetch("/upload_zip", {
       method: "POST",
       body: formData, // Send the file in the body of the request
     });
