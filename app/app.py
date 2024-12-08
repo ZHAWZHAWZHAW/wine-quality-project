@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 import numpy as np
 from joblib import load
 import shap
@@ -8,28 +9,35 @@ import matplotlib
 import io
 import base64
 import pandas as pd
+from backend.colab_links import read_colab_links
 
 matplotlib.use('Agg')
 
 # Flask-App initialisieren
 app = Flask(__name__)
+CORS(app)
 
 # Dynamischer Pfad zum Ordner 'models'
-base_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(base_dir, "models/")
+#base_dir = os.path.dirname(os.path.abspath(__file__))
+#model_path = os.path.join(base_dir, "models/")
 
-models = {
-    "Random Forest": load(os.path.join(model_path, "random_forest_model.joblib")),
-    "Logistic Regression": load(os.path.join(model_path, "logistic_regression_model.joblib")),
-    "SVC": load(os.path.join(model_path, "svc_model.joblib"))
-}
-scaler = load(os.path.join(model_path, "scaler.joblib"))
+#models = {
+#    "Random Forest": load(os.path.join(model_path, "random_forest_model.joblib")),
+#    "Logistic Regression": load(os.path.join(model_path, "logistic_regression_model.joblib")),
+#    "SVC": load(os.path.join(model_path, "svc_model.joblib"))
+#}
+#scaler = load(os.path.join(model_path, "scaler.joblib"))
 
 # Home-Route
 @app.route('/')
 def index():
     # Ein leeres Dictionary für form_values, damit die Seite korrekt geladen wird
     return render_template('index.html', models=list(models.keys()), form_values={})
+
+@app.route('/get_colab_links', methods=['GET'])
+def get_colab_links():
+    links = read_colab_links('backend/colab_links.txt')
+    return jsonify(links)  # Send links as a JSON response
 
 # Vorhersage-Route
 @app.route('/predict', methods=['POST'])
@@ -140,6 +148,8 @@ def predict():
             models=list(models.keys()),
             form_values=form_values
         )
+    
+
    
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1", port=5000)
