@@ -5,9 +5,11 @@ PLOTS_FOLDER = os.path.join(os.getcwd(), 'backend', 'plots')
 
 # Function to get all folder names and their respective .png files
 def get_plots():
+    # Ensure that the plots folder exists, and if not, create it
     if not os.path.exists(PLOTS_FOLDER):
-        raise ValueError("Plots folder does not exist.")
-    
+        print(f"Warning: {PLOTS_FOLDER} does not exist. Creating the folder.")
+        os.makedirs(PLOTS_FOLDER)
+
     # Dictionary to hold folder names and the corresponding list of PNG images
     plots = {}
 
