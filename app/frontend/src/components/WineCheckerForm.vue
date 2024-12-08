@@ -38,7 +38,10 @@
           <v-card-text>
             <v-list lines="two">
               <v-list-item v-for="(result, model) in predictions" :key="model">
-                <v-list-item-title>{{ model }}</v-list-item-title>
+                <v-list-item-title v-if="Object.keys(predictions).length === 1"
+                  >Model: {{ formData.model }}</v-list-item-title
+                >
+                <v-list-item-title v-else>Model: {{ model }}</v-list-item-title>
                 <v-list-item-text
                   >Result: {{ result }}</v-list-item-text
                 ></v-list-item
