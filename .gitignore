@@ -4,6 +4,10 @@ data/wine_quality_processed.csv
 model/wine_quality.csv
 
 # Ignore models and plots folders
-app/backend/models/
-app/backend/plots/
+app/backend/models/*
+app/backend/plots/*
+
+!app/backend/models/.gitkeep
+!app/backend/plots/.gitkeep
+
 app/backend/*.zip
