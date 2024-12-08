@@ -89,26 +89,26 @@ Bevor Sie beginnen, stellen Sie sicher, dass die folgende Software installiert i
 
 ## Schritte zur Einrichtung
 
-### 8.1 Repository klonen
+### 1 Repository klonen
 
 ```bash
 git clone https://github.com/dein-benutzername/wine-quality-project.git
 cd wine-quality-project
 ```
 
-### 8.2 Docker Image erstellen - Wichtig: Docker Dekstop starten
+### 2 Docker Image erstellen - Wichtig: Docker Dekstop starten
 
 ```bash
 docker build -t wine-quality-app .
 ```
 
-### 8.3 Docker container ausführen
+### 3 Docker container ausführen
 
 ```bash
 docker run -d -p 5000:5000 wine-quality-app
 ```
 
-### 8.4 Applikation aufrufen
+### 4 Applikation aufrufen
 
 - [Wine Quality Checker](http://localhost:5000/) - localhost:5000
 - Befolgen Sie die Schritte auf der Instructions page.
