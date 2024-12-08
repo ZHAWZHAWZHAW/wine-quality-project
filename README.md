@@ -67,7 +67,7 @@ Das Hauptziel ist es, einen robusten Algorithmus zu entwickeln, der auf Basis ch
 
 ---
 
-8. ** Applikation laufen lassen**
+8.  **Anwendung von XAI – Technikeng**
 
 # Weinqualitätsvorhersage-App
 
@@ -89,18 +89,33 @@ Bevor Sie beginnen, stellen Sie sicher, dass die folgende Software installiert i
 
 ## Schritte zur Einrichtung
 
-### 1. Repository klonen
+### 8.1 Repository klonen
 
 ```bash
 git clone https://github.com/dein-benutzername/wine-quality-project.git
 cd wine-quality-project
+```
 
+### 8.2 Docker Image erstellen - Wichtig: Docker Dekstop starten
+
+```bash
+docker build -t wine-quality-app .
+```
+
+### 8.3 Docker container ausführen
+
+```bash
+docker run -d -p 5000:5000 wine-quality-app
+```
 
 ## Kontakt & Autoren
+
 Anja Kovanovic (kovananj)
 Ranujan Kumar (kumarran)
 Taulant Pireva (pirevtau)
 Linus Schneeberger (schneli3)
 Denis Machacka (machaden)
+
+```
 
 ```
