@@ -1,18 +1,13 @@
 import os
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from flask_cors import CORS
-import numpy as np
-from joblib import load
-import shap
-import matplotlib.pyplot as plt
 import matplotlib
-import io
-import base64
 import pandas as pd
 from backend.colab_links import read_colab_links
 from backend.upload import handle_file_upload
 from backend.serve_plots import get_plots
 from backend.serve_models import models, scaler
+from backend.xai import get_shap_visualization
 
 matplotlib.use('Agg')
 
@@ -99,7 +94,6 @@ def predict():
         data = request.get_json()
 
         # Map user-friendly model names to the full model names
-
         model_name_map = {
             'Random Forest': 'random_forest_model',
             'Logistic Regression': 'logistic_regression_model',
@@ -137,8 +131,16 @@ def predict():
                 model_name: model.predict(scaled_features)[0]
                 for model_name, model in models.items()
             }
+            
+            # Get SHAP visualizations for all models
+            shap_data = {
+                model_name: get_shap_visualization(model, scaler, features_df, all_features, full_model_name)
+                for model_name, model in models.items()
+            }
+
             return jsonify({
-                'predictions': predictions
+                'predictions': predictions,
+                'shap_data': shap_data  # Include SHAP data for all models
             })
         else:
             # Check if the model exists in the dictionary
@@ -148,10 +150,15 @@ def predict():
             # Predict using the selected model
             model = models[full_model_name]
             prediction = model.predict(scaled_features)[0]
+            print("asdf")
+            print(model)
+            # Get SHAP visualization for the selected model
+            shap_data = get_shap_visualization(model, scaler, features_df, all_features, full_model_name)
 
-            # Return the prediction as JSON response
+            # Return the prediction and SHAP data as JSON response
             return jsonify({
-                'prediction': prediction
+                'prediction': prediction,
+                'shap_data': shap_data  # Include SHAP visualization for the selected model
             })
 
     except Exception as e:

@@ -51,6 +51,30 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row v-if="shap_data" class="mt-5">
+      <h1>XAI</h1>
+      <v-col cols="12" class="d-flex justify-center"
+        ><p>Waterfall plot</p></v-col
+      >
+
+      <v-col cols="12" class="d-flex justify-center">
+        <!-- Waterfall Plot -->
+        <v-img
+          v-if="shap_data && shap_data.waterfall"
+          :src="'data:image/png;base64,' + shap_data.waterfall"
+          alt="Waterfall Plot"
+        />
+      </v-col>
+      <!-- Force Plot -->
+      <v-col cols="12" class="d-flex justify-center"><p>Force plot</p></v-col>
+      <v-col cols="12" class="d-flex justify-center">
+        <v-img
+          v-if="shap_data && shap_data.force"
+          :src="'data:image/png;base64,' + shap_data.force"
+          alt="Force Plot"
+          class="ml-4"
+      /></v-col>
+    </v-row>
   </div>
 </template>
 
@@ -81,6 +105,7 @@ export default {
       },
       models: ["Random Forest", "Logistic Regression", "SVC", "All"],
       predictions: null, // For storing predictions from the backend
+      shap_data: null,
       errorMessage: null, // For error handling
       rules: {
         required: (value) => !!value || "This field is required",
@@ -114,6 +139,7 @@ export default {
             this.predictions = data.predictions; // Store predictions for all models
           } else if (data.prediction) {
             this.predictions = { Prediction: data.prediction }; // Store single prediction
+            this.shap_data = data.shap_data;
           }
         }
       } catch (error) {
