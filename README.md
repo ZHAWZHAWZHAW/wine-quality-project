@@ -92,7 +92,7 @@ Bevor Sie beginnen, stellen Sie sicher, dass die folgende Software installiert i
 ### 1 Repository klonen
 
 ```bash
-git clone https://github.com/dein-benutzername/wine-quality-project.git
+git clone https://github.com/ZHAWZHAWZHAW/wine-quality-project.git
 cd wine-quality-project
 ```
 
