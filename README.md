@@ -108,6 +108,10 @@ docker build -t wine-quality-app .
 docker run -d -p 5000:5000 wine-quality-app
 ```
 
+### 8.4 Applikation aufrufen
+
+- [Wine Quality Checker](http://localhost:5000/)
+
 ## Kontakt & Autoren
 
 - **Anja Kovanovic (kovananj)**
