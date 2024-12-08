@@ -76,19 +76,12 @@ def upload_zip():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Check if models and scaler are loaded; if not, load them
+        # Load models and scaler on each request
+        print("Loading models and scaler...")
+        models, scaler = load_models()  # Load models and scaler for each request
+        
         if not models or scaler is None:
-            print("Models or scaler are not loaded. Attempting to load them...")
-            loaded_models, loaded_scaler = load_models()
-            
-            # Update global variables if necessary
-            if loaded_models:
-                models.update(loaded_models)
-            if loaded_scaler:
-                scaler = loaded_scaler
-
-            if not models or scaler is None:
-                return jsonify({"error": "Models and scaler could not be loaded. Ensure they exist in the 'backend/models' folder."}), 500
+            return jsonify({"error": "Models and scaler could not be loaded. Ensure they exist in the 'backend/models' folder."}), 500
 
         # Get the JSON object from the request
         data = request.get_json()
@@ -167,6 +160,7 @@ def predict():
     except Exception as e:
         print(f"Error in prediction route: {str(e)}")
         return jsonify({"error": "An error occurred during prediction"}), 500
+
 
 
 if __name__ == '__main__':
