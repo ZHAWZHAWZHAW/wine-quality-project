@@ -111,3 +111,13 @@ docker run -d -p 5000:5000 wine-quality-app
 
 - [Wine Quality Checker](http://localhost:5000/) - localhost:5000
 - Befolgen Sie die Schritte auf der Instructions page.
+
+
+### 5 Google Colab Links
+
+- [Schritt 1](https://colab.research.google.com/drive/1FaeiP8Kn_DiPLvtf2qu2-Q7tGteyrLyl?usp=sharing)
+- [Schritt 2](https://colab.research.google.com/drive/1G_itgeDPeJm4W-DSP9-djWhZYS5UV61T?usp=sharing)
+- [Schritt 3](https://colab.research.google.com/drive/1R4XNuc3VmNynZcMJgT8nQHnexqLX2oeO?usp=sharing)
+- [Schritt 4](https://colab.research.google.com/drive/1P1lqfi9-oBBN8Rn2fOJyLGRBCqZb2xLs?usp=sharing)
+- [Schritt 5](https://colab.research.google.com/drive/1ksKV5Lxs3RhmT7KLym55nv-o38lhQNdg?usp=sharing)
+- [Schritt 6](https://colab.research.google.com/drive/1wn32An0bDUpsbnwQi2I8MoHqysdDmK04?usp=sharing)
