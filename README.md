@@ -110,7 +110,7 @@ docker run -d -p 5000:5000 wine-quality-app
 
 ### 8.4 Applikation aufrufen
 
-- [Wine Quality Checker](http://localhost:5000/)
+- [Wine Quality Checker](http://localhost:5000/) - localhost:5000
 
 ## Kontakt & Autoren
 
