@@ -51,29 +51,37 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row v-if="shap_data" class="mt-5">
-      <h1>XAI</h1>
-      <v-col cols="12" class="d-flex justify-center"
-        ><p>Waterfall plot</p></v-col
-      >
 
-      <v-col cols="12" class="d-flex justify-center">
-        <!-- Waterfall Plot -->
-        <v-img
-          v-if="shap_data && shap_data.waterfall"
-          :src="'data:image/png;base64,' + shap_data.waterfall"
-          alt="Waterfall Plot"
-        />
-      </v-col>
-      <!-- Force Plot -->
-      <v-col cols="12" class="d-flex justify-center"><p>Force plot</p></v-col>
-      <v-col cols="12" class="d-flex justify-center">
-        <v-img
-          v-if="shap_data && shap_data.force"
-          :src="'data:image/png;base64,' + shap_data.force"
-          alt="Force Plot"
-          class="ml-4"
-      /></v-col>
+    <v-row v-if="shap_data" class="mt-5">
+      <v-row class="w-100 mb-5">
+        <v-col><h1>XAI Techniques</h1></v-col>
+      </v-row>
+      <v-expansion-panels>
+        <v-expansion-panel
+          v-for="(result, model) in shap_data"
+          :key="model"
+          class="mt-2"
+        >
+          <v-expansion-panel-title>
+            Model: {{ model }}
+          </v-expansion-panel-title>
+          <v-expansion-panel-text v-if="result">
+            <v-row
+              v-for="(img, data) in result"
+              :key="data"
+              class="w-100 d-flex mt-5"
+            >
+              <v-col
+                ><h3>{{ data }} Plot</h3>
+                <v-img :src="'data:image/png;base64,' + img" class="w-100" />
+              </v-col>
+            </v-row>
+          </v-expansion-panel-text>
+          <v-expansion-panel-text v-else
+            >No Plot available</v-expansion-panel-text
+          >
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-row>
   </div>
 </template>
@@ -115,6 +123,7 @@ export default {
   methods: {
     // Handle form submission
     async submitForm() {
+      this.shap_data = null;
       try {
         const response = await fetch("http://localhost:5000/predict", {
           method: "POST",
@@ -132,6 +141,7 @@ export default {
         if (data.error) {
           this.errorMessage = data.error;
           this.predictions = null;
+          this.shap_data = null;
         } else {
           this.errorMessage = null;
           // Check if predictions is an object (for multiple models) or a single value
@@ -139,11 +149,12 @@ export default {
             this.predictions = data.predictions; // Store predictions for all models
           } else if (data.prediction) {
             this.predictions = { Prediction: data.prediction }; // Store single prediction
-            this.shap_data = data.shap_data;
           }
+          this.shap_data = data.shap_data;
         }
       } catch (error) {
         this.errorMessage = "An error occurred while fetching the prediction.";
+        this.shap_data = null;
         console.error(error);
       }
     },

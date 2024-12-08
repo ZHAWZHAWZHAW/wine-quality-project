@@ -122,9 +122,6 @@ def predict():
         # Map the model name to the full name
         full_model_name = model_name_map.get(selected_model, selected_model)
 
-        # Debugging: Print the selected model
-        print(f"Selected model: {full_model_name}")
-
         if full_model_name == "All":
             # Predict using all models
             predictions = {
@@ -134,9 +131,12 @@ def predict():
             
             # Get SHAP visualizations for all models
             shap_data = {
-                model_name: get_shap_visualization(model, scaler, features_df, all_features, full_model_name)
+                model_name: (
+                    get_shap_visualization(model, scaler, features_df, all_features, model_name)
+                )
                 for model_name, model in models.items()
             }
+
 
             return jsonify({
                 'predictions': predictions,
@@ -150,10 +150,12 @@ def predict():
             # Predict using the selected model
             model = models[full_model_name]
             prediction = model.predict(scaled_features)[0]
-            print("asdf")
-            print(model)
             # Get SHAP visualization for the selected model
-            shap_data = get_shap_visualization(model, scaler, features_df, all_features, full_model_name)
+            shap_data = {
+                full_model_name: (
+                    get_shap_visualization(model, scaler, features_df, all_features, full_model_name)
+                )
+            }          
 
             # Return the prediction and SHAP data as JSON response
             return jsonify({
