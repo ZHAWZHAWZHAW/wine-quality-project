@@ -36,11 +36,14 @@
         <v-card>
           <v-card-title>Prediction Results</v-card-title>
           <v-card-text>
-            <ul>
-              <li v-for="(result, model) in predictions" :key="model">
-                <strong>{{ model }}:</strong> {{ result }}
-              </li>
-            </ul>
+            <v-list lines="two">
+              <v-list-item v-for="(result, model) in predictions" :key="model">
+                <v-list-item-title>{{ model }}</v-list-item-title>
+                <v-list-item-text
+                  >Result: {{ result }}</v-list-item-text
+                ></v-list-item
+              >
+            </v-list>
           </v-card-text>
         </v-card>
       </v-col>
@@ -71,9 +74,9 @@ export default {
         density: "",
         sulphates: "",
         alcohol: "",
-        model: "random_forest",
+        model: "Random Forest",
       },
-      models: ["random_forest", "logistic_regression", "svc_model", "All"],
+      models: ["Random Forest", "Logistic Regression", "SVC", "All"],
       predictions: null, // For storing predictions from the backend
       errorMessage: null, // For error handling
       rules: {
@@ -103,7 +106,12 @@ export default {
           this.predictions = null;
         } else {
           this.errorMessage = null;
-          this.predictions = data.predictions; // Store predictions
+          // Check if predictions is an object (for multiple models) or a single value
+          if (data.predictions) {
+            this.predictions = data.predictions; // Store predictions for all models
+          } else if (data.prediction) {
+            this.predictions = { Prediction: data.prediction }; // Store single prediction
+          }
         }
       } catch (error) {
         this.errorMessage = "An error occurred while fetching the prediction.";

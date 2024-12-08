@@ -95,111 +95,70 @@ def upload_zip():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get form inputs
-        form_values = {
-            'type': request.form.get('type', '1'),  # Default to 1 (white wine)
-            'fixed_acidity': request.form.get('fixed_acidity'),
-            'volatile_acidity': request.form.get('volatile_acidity'),
-            'citric_acid': request.form.get('citric_acid'),
-            'residual_sugar': request.form.get('residual_sugar'),
-            'chlorides': request.form.get('chlorides'),
-            'free_sulfur_dioxide': request.form.get('free_sulfur_dioxide'),
-            'total_sulfur_dioxide': request.form.get('total_sulfur_dioxide'),
-            'density': request.form.get('density'),
-            'pH': request.form.get('pH'),
-            'sulphates': request.form.get('sulphates'),
-            'alcohol': request.form.get('alcohol')
+        # Get the JSON object from the request
+        data = request.get_json()
+
+        # Map user-friendly model names to the full model names
+
+        model_name_map = {
+            'Random Forest': 'random_forest_model',
+            'Logistic Regression': 'logistic_regression_model',
+            'SVC': 'svc_model'
         }
 
-        # Ensure all features are included
-        #all_features = ['type', 'fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar',
-        #                'chlorides', 'free_sulfur_dioxide', 'total_sulfur_dioxide', 'density',
-        #                'pH', 'sulphates', 'alcohol']
-        
-        all_features = ['type', 'fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar',
-                        'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 'density',
-                        'pH', 'sulphates', 'alcohol']
+        # Extract features from the JSON data
+        all_features = ['type', 'fixed acidity', 'volatile acidity', 'citric acid', 
+                        'chlorides', 'free sulfur dioxide', 'density', 'sulphates', 'alcohol']
 
-        # Fill missing values with defaults and convert to float
-        features = [float(form_values.get(feature, 0)) for feature in all_features]
+        # If any features are missing from the input data, default them to 0 (or any other default value you prefer)
+        features = [float(data.get(feature, 0)) for feature in all_features]
 
-        # Convert to numpy array
-        #features = np.array(features)
+        # Convert to pandas DataFrame
         features_df = pd.DataFrame([features], columns=all_features)
 
         # Scale features
-        #scaled_features = scaler.transform(features)
         try:
-        # Scale features using the scaler
             scaled_features = scaler.transform(features_df)
-            # Debug: Print the scaled features and check the shape
         except Exception as e:
-            # Catch and print the error
             print("Error during scaling:", str(e))
 
-        # Model selection
-        selected_model = request.form.get('model')
-        shap_data = None
+        # Get the model name from the JSON data
+        selected_model = data.get('model')
 
-        if selected_model == "All":
+        # Map the model name to the full name
+        full_model_name = model_name_map.get(selected_model, selected_model)
+
+        # Debugging: Print the selected model
+        print(f"Selected model: {full_model_name}")
+
+        if full_model_name == "All":
             # Predict using all models
             predictions = {
                 model_name: model.predict(scaled_features)[0]
                 for model_name, model in models.items()
             }
-            return render_template(
-                'index.html',
-                predictions=predictions,
-                models=list(models.keys()),
-                form_values=form_values
-            )
+            return jsonify({
+                'predictions': predictions
+            })
         else:
+            # Check if the model exists in the dictionary
+            if full_model_name not in models:
+                return jsonify({"error": f"Model '{full_model_name}' not found"}), 400
+
             # Predict using the selected model
-            model = models[selected_model]
-            #model = models["Random Forest"]
+            model = models[full_model_name]
             prediction = model.predict(scaled_features)[0]
 
-            # SHAP explanation generation
-            explainer = shap.Explainer(model, masker=shap.maskers.Independent(features_df))
-            shap_values = explainer(scaled_features)
-            shap_values.feature_names = all_features
+            # Return the prediction as JSON response
+            return jsonify({
+                'prediction': prediction
+            })
 
-            # Create SHAP plot
-            fig = plt.figure()
-
-            # If the shape is (1, 12, 4), extract the first output's explanation
-            if shap_values.shape[2] == 4:
-                # Extract the explanation for the first prediction and first output (output 0)
-                explanation = shap_values[0, :, 0]  # First prediction, first output
-                shap.waterfall_plot(explanation, max_display=10)
-
-            else:
-                print("Unexpected shape for SHAP values")
-
-            
-            for label in fig.get_axes()[0].get_xticklabels() + fig.get_axes()[0].get_yticklabels():
-                label.set_fontsize(8)
-            buf = io.BytesIO()
-            plt.savefig(buf, format='png', bbox_inches='tight', dpi=300)
-            buf.seek(0)
-            shap_data = base64.b64encode(buf.getvalue()).decode('utf-8')
-            buf.close()
-            plt.close()
-
-            return render_template(
-                'index.html',
-                prediction=prediction,
-                models=list(models.keys()),
-                shap_data=shap_data,  # Pass SHAP visualization
-                form_values=form_values
-            )
     except Exception as e:
-        return render_template(
-            'index.html',
-            error=str(e),
-            models=list(models.keys()),
-            form_values=form_values
-        )
+        # Handle errors and send them back as JSON
+        return jsonify({
+            'error': str(e)
+        })
 
 
    
