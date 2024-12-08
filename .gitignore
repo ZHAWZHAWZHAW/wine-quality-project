@@ -6,3 +6,4 @@ model/wine_quality.csv
 # Ignore models and plots folders
 app/backend/models/
 app/backend/plots/
+app/backend/*.zip
