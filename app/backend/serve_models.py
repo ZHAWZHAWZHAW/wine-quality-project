@@ -11,13 +11,16 @@ scaler = None
 def load_models():
     """
     Load all models and the scaler from the models folder and store them in the models dictionary.
+    Returns:
+        dict: A dictionary of loaded models.
+        object: The loaded scaler.
     """
     global models, scaler
     
     # Check if the models folder exists
     if not os.path.exists(MODELS_FOLDER):
         print(f"Warning: The folder '{MODELS_FOLDER}' does not exist. Skipping model loading.")
-        return
+        return models, scaler  # Return empty models and None scaler
     
     try:
         # List all files in the models folder with .joblib extension
@@ -25,7 +28,7 @@ def load_models():
         
         if not model_files:
             print("Warning: No models found in the 'backend/models' folder.")
-            return
+            return models, scaler  # Return empty models and None scaler
         
         # Load each model and add it to the models dictionary
         for model_file in model_files:
@@ -42,6 +45,6 @@ def load_models():
         print(f"Models loaded successfully: {', '.join(models.keys())}")
     except Exception as e:
         print(f"Error loading models and scaler: {str(e)}")
-
-# Call the function to load models and scaler when the module is imported
-load_models()
+    
+    # Return the models and scaler
+    return models, scaler
