@@ -21,7 +21,7 @@ Das Hauptziel ist es, einen robusten Algorithmus zu entwickeln, der auf Basis ch
 - Nullhypothese (H0​): Der chemische Parameter Alkoholgehalt hat keinen Einfluss auf die Weinqualität.
 - Alternativhypothese (H1​): Der chemische Parameter Alkoholgehalt beeinflusst die Weinqualität signifikant.
 
-  -> Auflösung in den Powerpoint-Slides
+  -> Auflösung und Beantwortung des Hypothesentest findet man in den Powerpoint-Slides
 
 ---
 
