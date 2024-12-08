@@ -6,7 +6,7 @@ In diesem Projekt dreht sich alles um die Frage: **Wie können wir mithilfe von 
 Dazu arbeiten wir mit einem umfangreichen Datensatz zur Weinqualität, den wir auf Kaggle gefunden haben:  
 [Wine Quality Data Set (Red & White Wine)](https://www.kaggle.com/datasets/ruthgn/wine-quality-data-set-red-white-wine).
 
-Der Datensatz enthält rund **78'000 Datenpunkte**, die verschiedene chemische Eigenschaften von Rot- und Weißweinen beschreiben, sowie eine Qualitätsbewertung auf einer Skala von **0 bis 10**. Ziel des Projekts ist es, mithilfe von Machine-Learning-Methoden eine möglichst präzise Vorhersage der Weinqualität zu ermöglichen.
+Der Datensatz enthält rund **78'000 Datenpunkte**, die verschiedene chemische Eigenschaften von Rot- und Weissweinen beschreiben, sowie eine Qualitätsbewertung auf einer Skala von **0 bis 10**. Ziel des Projekts ist es, mithilfe von Machine-Learning-Methoden eine möglichst präzise Vorhersage der Weinqualität zu ermöglichen.
 
 ---
 
@@ -16,19 +16,9 @@ Das Hauptziel ist es, einen robusten Algorithmus zu entwickeln, der auf Basis ch
 
 ---
 
-## 📥 🛠️ Installation & Nutzung
-
-1. Repository klonen (https://github.com/ZHAWZHAWZHAW/wine-quality-project.git)
-2. Benötigte Abhängigkeiten installieren:
-   - Befehl: pip install -r requirements.txt
-
----
-
 ## ⚙️ 📈 Aufbau des Projekt
 
 1.  **Datenbeschaffung**
-
-    - TEXT
 
             #### 🗂️ 💾 Datenquelle
             Der Datensatz wurde von Kaggle bereitgestellt und kann hier heruntergeladen werden:
@@ -37,11 +27,14 @@ Das Hauptziel ist es, einen robusten Algorithmus zu entwickeln, der auf Basis ch
 
 2.  **Explorative Datenanalyse (EDA)**
 
-    - TEXT
+    - Daten beschreiben, Identifizierung und Verstehen von Beziehungen und Gruppen,
+Hypothesentest
 
 3.  **Unifying & Transformation**
 
-    - TEXT
+    - Datentypen und Formate analysieren und bei Bedarf vereinheitlichen,
+Daten sinnvoll zusammenführen
+
     - Die Skala von 0 bis 10 wird in fünf Kategorien eingeteilt:
       - Sehr schlecht
       - Schlecht
@@ -52,25 +45,26 @@ Das Hauptziel ist es, einen robusten Algorithmus zu entwickeln, der auf Basis ch
 
 4.  **Data Cleansing + Analysis & Validation**
 
-    - Text
+    - Beurteilung der Datenqualität und erforderliche Bereinigung der Daten
+    - Analyse der Verteilungen, Abweichungen & Kennzahlen
 
 5.  **Feature Selection & Engineering**
 
-    - Text
+    - Analyse der Korrelationen und Kausalitäten, Identifikation der Features
 
 6.  **Anwendung in Machine Learning**
 
-    - Text
+    - Entwicklung von Regressions- oder Klassifikationsmodellen,
+Performance-Vergleich und –Interpretation
 
-7.  **Anwendung von XAI – Technikeng**
+7.  **Anwendung von XAI – Techniken**
 
-    - Text
-
-8.  **Anwendung von XAI – Technikeng**
+    - Anwendung von XAI – Techniken, um die entwickelten Modelle
+in Bezug auf die Fallstudie zu erkläre
 
 ---
-
-# Ausführen der Applikation
+# 📥 🛠️ Installation & Nutzung
+## Ausführen der Applikation
 
 ## Voraussetzungen
 
@@ -112,11 +106,3 @@ docker run -d -p 5000:5000 wine-quality-app
 
 - [Wine Quality Checker](http://localhost:5000/) - localhost:5000
 - Befolgen Sie die Schritte auf der Instructions page.
-
-## Kontakt & Autoren
-
-- **Anja Kovanovic (kovananj)**
-- **Ranujan Kumar (kumarran)**
-- **Taulant Pireva (pirevtau)**
-- **Linus Schneeberger (schneli3)**
-- **Denis Machacka (machaden)**
