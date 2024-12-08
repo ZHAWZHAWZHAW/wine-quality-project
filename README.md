@@ -63,13 +63,14 @@ Das Hauptziel ist es, einen robusten Algorithmus zu entwickeln, der auf Basis ch
     - Text
 
 7.  **Anwendung von XAI – Technikeng**
-    - Text
 
----
+    - Text
 
 8.  **Anwendung von XAI – Technikeng**
 
 ---
+
+# Ausführen der Applikation
 
 ## Voraussetzungen
 
