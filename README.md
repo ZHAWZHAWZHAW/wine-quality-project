@@ -19,7 +19,7 @@ Das Hauptziel ist es, einen robusten Algorithmus zu entwickeln, der auf Basis ch
 ## ⚙️ 📈 Aufbau des Projekt
 
 1.  **Datenbeschaffung**
-   - Der Datensatz wurde von Kaggle bereitgestellt und kann hier heruntergeladen werden:
+      - Der Datensatz wurde von Kaggle bereitgestellt und kann hier heruntergeladen werden:
 
       [Wine Quality Data Set](https://www.kaggle.com/datasets/ruthgn/wine-quality-data-set-red-white-wine)
 
