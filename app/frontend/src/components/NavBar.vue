@@ -6,28 +6,27 @@
     <v-divider></v-divider>
 
     <v-list density="compact" nav>
-      <v-list-item title="Instructions" value="Home" :to="'/'"></v-list-item>
       <v-list-item
-        title="Exploration"
-        value="exploration"
-        :to="'/exploration'"
+        title="Instructions"
+        value="Home"
+        :to="'/'"
+        active-color="secondary"
+      >
+        <template v-slot:prepend>
+          <v-icon icon="mdi-menu" color="secondary"></v-icon>
+        </template>
+      </v-list-item>
+      <v-list-item
+        title="Plots"
+        value="plots"
+        :to="'/plots'"
+        active-color="secondary"
+        ><template v-slot:prepend>
+          <v-icon icon="mdi-image" color="warning"></v-icon> </template
       ></v-list-item>
-      <v-list-item
-        title="Data Analysis"
-        value="data_analysis"
-        :to="'/data_analysis'"
-      ></v-list-item>
-      <v-list-item
-        title="Feature Selection"
-        value="feature_selection"
-        :to="'/feature_selection'"
-      ></v-list-item>
-      <v-list-item title="Model" value="model" :to="'/model'"></v-list-item>
-      <v-list-item title="XAI" value="xai" :to="'/xai'"></v-list-item>
-      <v-list-item
-        title="Our Project"
-        value="project"
-        :to="'/project'"
+      <v-list-item title="App" value="run" :to="'/run'" active-color="secondary"
+        ><template v-slot:prepend>
+          <v-icon icon="mdi-play" color="primary"></v-icon> </template
       ></v-list-item>
     </v-list>
   </v-navigation-drawer>

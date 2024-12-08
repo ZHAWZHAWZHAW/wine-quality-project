@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <v-container>
     <h1 class="mb-3">Instructions</h1>
     <ColabLinks />
-  </div>
+  </v-container>
 </template>
 
 <script setup></script>

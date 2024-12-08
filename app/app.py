@@ -11,6 +11,8 @@ import base64
 import pandas as pd
 from backend.colab_links import read_colab_links
 from backend.upload import handle_file_upload
+from backend.serve_plots import get_plots
+from backend.serve_models import models, scaler
 
 matplotlib.use('Agg')
 
@@ -47,6 +49,31 @@ def get_colab_links():
 def serve_instruction_file(filename):
     # Serve the image files from the 'instructions' folder
     return send_from_directory(instructions_folder, filename)
+
+@app.route('/get_plots', methods=['GET'])
+def get_plots_route():
+    try:
+        plots = get_plots()
+        if not plots:
+            return jsonify({"error": "Plots folder not found"}), 404
+        return jsonify(plots)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+# Route to serve an image from a specific folder
+@app.route('/plots/<folder_name>/<filename>', methods=['GET'])
+def serve_image(folder_name, filename):
+    folder_path = os.path.join(os.getcwd(), 'backend', 'plots', folder_name)
+    
+    # Ensure the folder exists and that the file is a PNG file
+    if os.path.isdir(folder_path) and filename.endswith('.png'):
+        # Check if the file exists in the folder
+        if filename in os.listdir(folder_path):
+            return send_from_directory(folder_path, filename)
+        else:
+            return jsonify({"error": "File not found"}), 404
+    return jsonify({"error": "Invalid folder or file"}), 400
 
 @app.route('/upload_zip', methods=['POST'])
 def upload_zip():
@@ -173,7 +200,7 @@ def predict():
             models=list(models.keys()),
             form_values=form_values
         )
-    
+
 
    
 if __name__ == "__main__":
