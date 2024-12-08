@@ -3,8 +3,6 @@ FROM node:16 as build-frontend
 
 WORKDIR /app/frontend
 COPY app/frontend /app/frontend
-RUN npm install
-RUN npm run build
 
 # Step 2: Set up the backend
 FROM python:3.12-slim as build-backend
