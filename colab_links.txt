@@ -1,6 +1,0 @@
-https://colab.research.google.com/drive/1FaeiP8Kn_DiPLvtf2qu2-Q7tGteyrLyl?usp=sharing Get Data
-https://colab.research.google.com/drive/1G_itgeDPeJm4W-DSP9-djWhZYS5UV61T?usp=sharing Data Exploration
-https://colab.research.google.com/drive/1R4XNuc3VmNynZcMJgT8nQHnexqLX2oeO?usp=sharing Data Processing
-https://colab.research.google.com/drive/1P1lqfi9-oBBN8Rn2fOJyLGRBCqZb2xLs?usp=sharing Data Analysis
-https://colab.research.google.com/drive/1ksKV5Lxs3RhmT7KLym55nv-o38lhQNdg?usp=sharing Feature Selection
-https://colab.research.google.com/drive/1wn32An0bDUpsbnwQi2I8MoHqysdDmK04?usp=sharing Model
