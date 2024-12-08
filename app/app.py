@@ -6,7 +6,7 @@ import pandas as pd
 from backend.colab_links import read_colab_links
 from backend.upload import handle_file_upload
 from backend.serve_plots import get_plots
-from backend.serve_models import models, scaler
+from backend.serve_models import models, scaler, load_models
 from backend.xai import get_shap_visualization
 
 matplotlib.use('Agg')
