@@ -84,6 +84,25 @@
         </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
+
+    <!-- Final step with zip upload -->
+    <v-card
+      subtitle="Damit die Flask app die ML Modelle nutzten kann, müssen diese hochgeladen werden."
+      title=".zip upload"
+      class="mb-2 mt-2"
+      variant="outlined"
+      color="grey-lighten-1"
+    >
+      <v-card-text>
+        <p>
+          Nachdem Schritt 6 erfolgreich erledigt wurde, sollten sie in ihrem
+          "downloads" folder ein file mit dem Namen "wine_project_artifacts.zip"
+          haben
+        </p>
+        <p>Laden sie dieses File bitte hoch.</p>
+        <FileUpload />
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 

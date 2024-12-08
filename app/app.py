@@ -10,6 +10,7 @@ import io
 import base64
 import pandas as pd
 from backend.colab_links import read_colab_links
+from backend.upload import handle_file_upload
 
 matplotlib.use('Agg')
 
@@ -46,6 +47,22 @@ def get_colab_links():
 def serve_instruction_file(filename):
     # Serve the image files from the 'instructions' folder
     return send_from_directory(instructions_folder, filename)
+
+@app.route('/upload_zip', methods=['POST'])
+def upload_zip():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    file = request.files['file']
+    
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+
+    try:
+        # Pass the file to the handle_file_upload function
+        file_path = handle_file_upload(file)
+        return jsonify({'message': 'File uploaded successfully', 'file_path': file_path}), 200
+    except ValueError as e:
+        return jsonify({'error': str(e)}), 400  # Handle file validation error
 
 # Vorhersage-Route
 @app.route('/predict', methods=['POST'])
