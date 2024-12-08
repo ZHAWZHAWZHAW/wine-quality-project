@@ -108,8 +108,7 @@ docker run -d -p 5000:5000 wine-quality-app
 ### 8.4 Applikation aufrufen
 
 - [Wine Quality Checker](http://localhost:5000/) - localhost:5000
-
-Befolgen Sie die Schritte auf der Instructions page.
+- Befolgen Sie die Schritte auf der Instructions page.
 
 ## Kontakt & Autoren
 
