@@ -1,14 +1,89 @@
-<!-- __frontend/ColabLinks.vue -->
-
 <template>
   <div>
-    <h1>Colab Links</h1>
-    <ul>
-      <li v-for="(linkObj, index) in colabLinks" :key="index">
-        <a :href="linkObj.link" target="_blank">{{ linkObj.description }}</a>
-        <!-- Display description -->
-      </li>
-    </ul>
+    <!-- Prerequisites Card with Kaggle API Token -->
+    <v-card
+      subtitle="Kaggle API Token"
+      title="Prerequisites"
+      class="mb-2"
+      variant="outlined"
+      color="grey-lighten-1"
+    >
+      <v-card-text>
+        <p>
+          Bevor die Jupyter Notebooks ausgeführt werden können, muss ein kaggle
+          API Token vorhanden sein!
+        </p>
+        <p>
+          Gehen Sie dafür auf die
+          <a href="https://www.kaggle.com" target="_blank">Kaggle</a> Webseite,
+          und loggen Sie sich ein.
+        </p>
+        <v-row class="mt-3">
+          <v-col>Klicken Sie auf "Settings" oder "Einstellungen"</v-col>
+          <v-col
+            ><v-img
+              src="http://localhost:5000/instructions/kaggle_profile.png"
+              alt="Kaggle Profile"
+              height="200px"
+          /></v-col>
+        </v-row>
+        <v-row
+          ><v-col
+            ><p>Scrollen Sien runter, bis sie zum API Tab kommen.</p>
+            <p>
+              Klicken sie auf "Create New Token" und speichern sie das
+              "kaggle.json"
+            </p></v-col
+          ><v-col
+            ><v-img
+              src="http://localhost:5000/instructions/kaggle_api_token.png" /></v-col></v-row
+        ><v-row
+          ><v-col
+            ><p>
+              Sobald Sie das kaggle.json runtergeladen haben, können sie die
+              Schritte 1 - 6 unter "Google Colab Links" ausführen
+            </p></v-col
+          ></v-row
+        >
+        <v-row class="mt-2"
+          ><v-col
+            ><v-alert color="info">
+              <p>Info:</p>
+              <p>
+                Beim ausführen der Notebooks, werden sie aufgefordert
+                Berechtigungen auf ihr Google Drive zu erteilen.
+              </p>
+              <p>
+                Diese werden benötigt, um die Files speichern zu können.
+              </p></v-alert
+            ></v-col
+          ></v-row
+        >
+      </v-card-text>
+    </v-card>
+
+    <!-- Expansion Panel for Colab Links -->
+    <v-expansion-panels>
+      <v-expansion-panel>
+        <v-expansion-panel-title color="orange-lighten-3"
+          >Google Colab Links</v-expansion-panel-title
+        >
+        <v-expansion-panel-text>
+          <v-list lines="two">
+            <v-list-item
+              v-for="(linkObj, index) in colabLinks"
+              :key="index"
+              :title="'Schritt ' + (index + 1)"
+            >
+              <v-list-item-subtitle class="mt-2"> </v-list-item-subtitle>
+              <a :href="linkObj.link" target="_blank">{{
+                linkObj.description
+              }}</a>
+            </v-list-item>
+          </v-list>
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
 
@@ -25,13 +100,13 @@ export default {
   methods: {
     async fetchColabLinks() {
       try {
-        // Using fetch API to get data from backend
-        const response = await fetch("http://localhost:5000/get_colab_links"); // URL for the backend API
+        // Fetching Colab links from the backend
+        const response = await fetch("http://localhost:5000/get_colab_links"); // Backend API URL
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        const data = await response.json(); // Parse the JSON response
-        this.colabLinks = data; // Store the links and descriptions
+        const data = await response.json(); // Parse the response JSON
+        this.colabLinks = data; // Store the Colab links and descriptions
       } catch (error) {
         console.error("Error fetching links:", error); // Handle error
       }
@@ -41,5 +116,5 @@ export default {
 </script>
 
 <style scoped>
-/* Add some styling as needed */
+/* Styling as needed */
 </style>

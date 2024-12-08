@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 from flask_cors import CORS
 import numpy as np
 from joblib import load
@@ -28,6 +28,9 @@ CORS(app)
 #}
 #scaler = load(os.path.join(model_path, "scaler.joblib"))
 
+# Path to the 'instructions' folder
+instructions_folder = os.path.join(os.path.dirname(__file__), 'backend/instructions')
+
 # Home-Route
 @app.route('/')
 def index():
@@ -38,6 +41,11 @@ def index():
 def get_colab_links():
     links = read_colab_links('backend/colab_links.txt')
     return jsonify(links)  # Send links as a JSON response
+
+@app.route('/instructions/<filename>', methods=['GET'])
+def serve_instruction_file(filename):
+    # Serve the image files from the 'instructions' folder
+    return send_from_directory(instructions_folder, filename)
 
 # Vorhersage-Route
 @app.route('/predict', methods=['POST'])
