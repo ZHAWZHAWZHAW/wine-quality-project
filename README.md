@@ -110,12 +110,8 @@ docker run -d -p 5000:5000 wine-quality-app
 
 ## Kontakt & Autoren
 
-Anja Kovanovic (kovananj)
-Ranujan Kumar (kumarran)
-Taulant Pireva (pirevtau)
-Linus Schneeberger (schneli3)
-Denis Machacka (machaden)
-
-```
-
-```
+- **Anja Kovanovic (kovananj)**
+- **Ranujan Kumar (kumarran)**
+- **Taulant Pireva (pirevtau)**
+- **Linus Schneeberger (schneli3)**
+- **Denis Machacka (machaden)**
