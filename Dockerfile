@@ -1,13 +1,8 @@
 # Step 1: Build the frontend
-FROM node:18 as build-frontend
+FROM node:16 as build-frontend
 
 WORKDIR /app/frontend
 COPY app/frontend /app/frontend
-
-# Clean the npm cache before install
-RUN npm cache clean --force
-
-# Install dependencies and build the frontend
 RUN npm install
 RUN npm run build
 
