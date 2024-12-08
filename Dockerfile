@@ -1,7 +1,7 @@
 # Step 1: Build the frontend
 FROM node:16 as build-frontend
 
-WORKDIR /app
+WORKDIR /app/frontend
 COPY app/frontend/package.json app/frontend/package-lock.json /app/frontend/
 RUN npm install
 RUN npm run build
