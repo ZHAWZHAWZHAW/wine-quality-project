@@ -2,7 +2,7 @@
 FROM node:16 as build-frontend
 
 WORKDIR /app/frontend
-COPY app/frontend/package.json app/frontend/package-lock.json /app/frontend/
+COPY app/frontend /app/frontend
 RUN npm install
 RUN npm run build
 
@@ -21,9 +21,7 @@ ENV FLASK_APP=/app/app.py
 # Copy the backend code (app/backend) and the app.py file
 COPY app/backend /app/backend/
 COPY app/app.py /app/app.py
-
-# Copy only the built frontend (from the dist folder)
-COPY --from=build-frontend /app/frontend/dist /app/frontend
+COPY app/frontend/dist /app/frontend/dist
 
 # Command to output file structure and then run the Flask app
 CMD ls /app && flask run --host=0.0.0.0 --port=5000
