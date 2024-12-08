@@ -19,18 +19,16 @@ Das Hauptziel ist es, einen robusten Algorithmus zu entwickeln, der auf Basis ch
 ## ⚙️ 📈 Aufbau des Projekt
 
 1.  **Datenbeschaffung**
-
-            #### 🗂️ 💾 Datenquelle
-            Der Datensatz wurde von Kaggle bereitgestellt und kann hier heruntergeladen werden:
+   - Der Datensatz wurde von Kaggle bereitgestellt und kann hier heruntergeladen werden:
 
       [Wine Quality Data Set](https://www.kaggle.com/datasets/ruthgn/wine-quality-data-set-red-white-wine)
 
-2.  **Explorative Datenanalyse (EDA)**
+3.  **Explorative Datenanalyse (EDA)**
 
     - Daten beschreiben, Identifizierung und Verstehen von Beziehungen und Gruppen,
 Hypothesentest
 
-3.  **Unifying & Transformation**
+4.  **Unifying & Transformation**
 
     - Datentypen und Formate analysieren und bei Bedarf vereinheitlichen,
 Daten sinnvoll zusammenführen
@@ -43,21 +41,21 @@ Daten sinnvoll zusammenführen
       - Sehr gut  
         Dies macht die Ergebnisse anschaulicher und besser interpretierbar.
 
-4.  **Data Cleansing + Analysis & Validation**
+5.  **Data Cleansing + Analysis & Validation**
 
     - Beurteilung der Datenqualität und erforderliche Bereinigung der Daten
     - Analyse der Verteilungen, Abweichungen & Kennzahlen
 
-5.  **Feature Selection & Engineering**
+6.  **Feature Selection & Engineering**
 
     - Analyse der Korrelationen und Kausalitäten, Identifikation der Features
 
-6.  **Anwendung in Machine Learning**
+7.  **Anwendung in Machine Learning**
 
     - Entwicklung von Regressions- oder Klassifikationsmodellen,
 Performance-Vergleich und –Interpretation
 
-7.  **Anwendung von XAI – Techniken**
+8.  **Anwendung von XAI – Techniken**
 
     - Anwendung von XAI – Techniken, um die entwickelten Modelle
 in Bezug auf die Fallstudie zu erkläre
