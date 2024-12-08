@@ -1,0 +1,28 @@
+# Step 1: Build the frontend
+FROM node:16 as build-frontend
+
+WORKDIR /app
+COPY app/frontend/package.json app/frontend/package-lock.json /app/frontend/
+RUN npm install
+RUN npm run build
+
+# Step 2: Set up the backend
+FROM python:3.12-slim as build-backend
+
+WORKDIR /app
+
+# Copy the requirements and install Python dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Set the FLASK_APP environment variable to the location of app.py
+# This points to the app.py inside the /app directory
+ENV FLASK_APP=/app/app.py
+
+# Copy the backend code (app/backend) and the app.py file from the app folder
+COPY app/backend /app/backend/
+COPY app/app.py /app/app.py
+COPY app/frontend /app/frontend/
+
+# Command to output file structure and then run the Flask app
+CMD ls -1 /app && flask run --host=0.0.0.0 --port=5000

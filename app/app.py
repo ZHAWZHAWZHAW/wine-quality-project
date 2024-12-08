@@ -12,11 +12,8 @@ from backend.xai import get_shap_visualization
 matplotlib.use('Agg')
 
 # Flask-App initialisieren
-app = Flask(__name__)
-CORS(app)
-
-# Flask-App initialisieren
 app = Flask(__name__, static_folder='frontend/dist', static_url_path='/')
+CORS(app)
 
 # Home-Route
 @app.route('/')
@@ -158,7 +155,5 @@ def predict():
             'error': str(e)
         })
 
-
-   
-if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=5000)
+if __name__ == '__main__':
+    app.run(debug=True)
