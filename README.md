@@ -75,6 +75,7 @@ Bevor Sie beginnen, stellen Sie sicher, dass die folgende Software installiert i
 
 - [Docker](https://www.docker.com/products/docker-desktop) (für die Containerisierung)
 - [Git](https://git-scm.com/downloads) (zum Klonen des Repositories)
+- [Google Account](https://gmail.com/) (zum Ausführen der Notebooks)
 
 ## Projektstruktur
 
@@ -107,6 +108,8 @@ docker run -d -p 5000:5000 wine-quality-app
 ### 8.4 Applikation aufrufen
 
 - [Wine Quality Checker](http://localhost:5000/) - localhost:5000
+
+Befolgen Sie die Schritte auf der Instructions page.
 
 ## Kontakt & Autoren
 
