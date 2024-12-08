@@ -22,7 +22,7 @@ ENV FLASK_APP=/app/app.py
 # Copy the backend code (app/backend) and the app.py file from the app folder
 COPY app/backend /app/backend/
 COPY app/app.py /app/app.py
-COPY app/frontend /app/frontend/
+COPY app/frontend/dist /app/frontend/dist
 
 # Command to output file structure and then run the Flask app
-CMD ls -1 /app && flask run --host=0.0.0.0 --port=5000
+CMD ls /app && flask run --host=0.0.0.0 --port=5000
