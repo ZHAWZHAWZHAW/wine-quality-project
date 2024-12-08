@@ -79,7 +79,7 @@ def predict():
         # Check if models and scaler are loaded; if not, load them
         if not models or scaler is None:
             print("Models or scaler are not loaded. Attempting to load them...")
-            load_models()
+            load_models
             if not models or scaler is None:
                 return jsonify({"error": "Models and scaler could not be loaded. Ensure they exist in the 'backend/models' folder."}), 500
 
