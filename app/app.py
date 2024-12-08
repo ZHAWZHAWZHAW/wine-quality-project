@@ -76,6 +76,13 @@ def upload_zip():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
+        # Check if models and scaler are loaded; if not, load them
+        if not models or scaler is None:
+            print("Models or scaler are not loaded. Attempting to load them...")
+            load_models()
+            if not models or scaler is None:
+                return jsonify({"error": "Models and scaler could not be loaded. Ensure they exist in the 'backend/models' folder."}), 500
+
         # Get the JSON object from the request
         data = request.get_json()
 
@@ -101,6 +108,7 @@ def predict():
             scaled_features = scaler.transform(features_df)
         except Exception as e:
             print("Error during scaling:", str(e))
+            return jsonify({"error": f"Feature scaling failed: {str(e)}"}), 500
 
         # Get the model name from the JSON data
         selected_model = data.get('model')
@@ -123,7 +131,6 @@ def predict():
                 for model_name, model in models.items()
             }
 
-
             return jsonify({
                 'predictions': predictions,
                 'shap_data': shap_data  # Include SHAP data for all models
@@ -136,6 +143,7 @@ def predict():
             # Predict using the selected model
             model = models[full_model_name]
             prediction = model.predict(scaled_features)[0]
+            
             # Get SHAP visualization for the selected model
             shap_data = {
                 full_model_name: (
@@ -150,10 +158,9 @@ def predict():
             })
 
     except Exception as e:
-        # Handle errors and send them back as JSON
-        return jsonify({
-            'error': str(e)
-        })
+        print(f"Error in prediction route: {str(e)}")
+        return jsonify({"error": "An error occurred during prediction"}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
